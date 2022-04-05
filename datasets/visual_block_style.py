@@ -43,9 +43,10 @@ def _get_value(labels):
 
 class BlockStylePVR(Dataset):
     def __init__(self,
-                 train: bool,
-                 mode: str = "iid",
-                 size: int = None):
+                train: bool,
+                root: str = '../data',
+                mode: str = "iid",
+                size: int = None):
         """
 
         Args:
@@ -54,7 +55,7 @@ class BlockStylePVR(Dataset):
             size: dataset size
         """
 
-        self.ds = TRAIN_SET if train else TEST_SET
+        self.ds = datasets.MNIST(root=root, train=True, download=True) if train else datasets.MNIST(root=root, train=False, download=True)
 
         if size is not None and size > len(self.ds) // 4:
             raise ValueError(f"Requested dataset size is too big. Can be up too {len(self.ds) // 4}.")
